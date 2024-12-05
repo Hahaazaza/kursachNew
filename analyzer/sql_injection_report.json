@@ -1,0 +1,62 @@
+[
+  {
+    "fileName": "C:\\Users\\user\\IdeaProjects\\analyzer\\src\\main\\java\\org\\example\\hard.sql",
+    "lineNumber": 18,
+    "query": "CREATE TABLE orders (     order_id INT AUTO_INCREMENT PRIMARY KEY,     user_id INT NOT NULL,     order_date DATE NOT NULL,     total_amount DECIMAL(10, 2) NOT NULL,     FOREIGN KEY (user_id) REFERENCES users(id) )",
+    "message": "Ошибка парсинга: null"
+  },
+  {
+    "fileName": "C:\\Users\\user\\IdeaProjects\\analyzer\\src\\main\\java\\org\\example\\hard.sql",
+    "lineNumber": 27,
+    "query": "CREATE TABLE order_items (     item_id INT AUTO_INCREMENT PRIMARY KEY,     order_id INT NOT NULL,     product_id INT NOT NULL,     price DECIMAL(10, 2) NOT NULL,     quantity INT NOT NULL,     FOREIGN KEY (order_id) REFERENCES orders(order_id) )",
+    "message": "Ошибка парсинга: null"
+  },
+  {
+    "fileName": "C:\\Users\\user\\IdeaProjects\\analyzer\\src\\main\\java\\org\\example\\hard.sql",
+    "lineNumber": 31,
+    "query": "INSERT INTO users (username, password, email) VALUES (\u0027jane_doe\u0027, \u0027another_password\u0027, \u0027jane@example.com\u0027)",
+    "message": "Потенциальная SQL инъекция найдена"
+  },
+  {
+    "fileName": "C:\\Users\\user\\IdeaProjects\\analyzer\\src\\main\\java\\org\\example\\hard.sql",
+    "lineNumber": 38,
+    "query": "INSERT INTO orders (user_id, order_date, total_amount) VALUES (     (SELECT id FROM users WHERE username \u003d \u0027john_doe\u0027),     CURDATE(),     (SELECT SUM(price * quantity) FROM order_items WHERE order_id \u003d 1) )",
+    "message": "Потенциальная SQL инъекция найдена"
+  },
+  {
+    "fileName": "C:\\Users\\user\\IdeaProjects\\analyzer\\src\\main\\java\\org\\example\\hard.sql",
+    "lineNumber": 46,
+    "query": "INSERT INTO order_items (order_id, product_id, price, quantity) VALUES (     (SELECT order_id FROM orders WHERE user_id \u003d (SELECT id FROM users WHERE username \u003d \u0027john_doe\u0027)),     1,     100.00,     2 )",
+    "message": "Потенциальная SQL инъекция найдена"
+  },
+  {
+    "fileName": "C:\\Users\\user\\IdeaProjects\\analyzer\\src\\main\\java\\org\\example\\safe_sql.sql",
+    "lineNumber": 0,
+    "query": "",
+    "message": "Код безопасен"
+  },
+  {
+    "fileName": "C:\\Users\\user\\IdeaProjects\\analyzer\\src\\main\\java\\org\\example\\safe_sql2.sql",
+    "lineNumber": 0,
+    "query": "",
+    "message": "Код безопасен"
+  },
+  {
+    "fileName": "C:\\Users\\user\\IdeaProjects\\analyzer\\src\\main\\java\\org\\example\\vulnerable_sql.sql",
+    "lineNumber": 12,
+    "query": "INSERT INTO users (username, password, email) VALUES (\u0027john_doe\u0027, \u0027secure_password\u0027, \u0027john@example.com\u0027)",
+    "message": "Потенциальная SQL инъекция найдена"
+  },
+  {
+    "fileName": "C:\\Users\\user\\IdeaProjects\\analyzer\\src\\main\\java\\org\\example\\vulnerable_sql.sql",
+    "lineNumber": 13,
+    "query": "INSERT INTO users (username, password, email) VALUES (\u0027john_doe\u0027, \u0027hacked\u0027)",
+    "message": "Потенциальная SQL инъекция найдена"
+  },
+  {
+    "fileName": "C:\\Users\\user\\IdeaProjects\\analyzer\\src\\main\\java\\org\\example\\vulnerable_sql2.sql",
+    "lineNumber": 14,
+    "query": "INSERT INTO users (username, password, email) VALUES (\u0027john_doe\u0027, \u0027hacked\u0027)",
+    "message": "Потенциальная SQL инъекция найдена"
+  }
+]
